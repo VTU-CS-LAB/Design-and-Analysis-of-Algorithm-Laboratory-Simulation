@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import time
 
 n = 100000
+m = 200
 
 def mergeSort(li, l, h):
     if l < h:
@@ -52,7 +53,7 @@ worstCase = bestCase[::-1]
 averageCase = [random.randint(0, n) for i in range(n)]
 
 def findTime(bestCase, worstCase, averageCase):
-    for i in range(int(n/2), int(n), int(n/50)):
+    for i in range(0, int(n), int(n/m)):
         print(i)
         t1 = time.time()
         mergeSort(bestCase, 0, i)
@@ -66,9 +67,9 @@ def findTime(bestCase, worstCase, averageCase):
 
 findTime(bestCase, worstCase, averageCase)
 
-plt.plot([i for i in range(5000, 10000, int(n/50))], timeBestCase)
-plt.plot([i for i in range(5000, 10000, int(n/50))], timeWorstCase)
-plt.plot([i for i in range(5000, 10000, int(n/50))], timeAverageCase)
+plt.plot([i for i in range(0, n, int(n/m))], timeBestCase)
+plt.plot([i for i in range(0, n, int(n/m))], timeWorstCase)
+plt.plot([i for i in range(0, n, int(n/m))], timeAverageCase)
 plt.xlabel('Number of inputs')
 plt.ylabel('Time of execution in seconds')
 plt.show()
