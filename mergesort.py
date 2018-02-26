@@ -2,7 +2,7 @@ import random
 import matplotlib.pyplot as plt
 import time
 
-n = 10000
+n = 100000
 
 def mergeSort(li, l, h):
     if l < h:
@@ -34,11 +34,11 @@ def merge(li, l, m, h):
             j += 1
         k += 1
 
-        while i < n1:
+    while i < n1:
             li[k] = L[i]
             i += 1
             k += 1
-        while j < n2:
+    while j < n2:
             li[k] = R[j]
             j += 1
             k += 1
