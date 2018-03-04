@@ -24,6 +24,7 @@ def merge(li, l, m, h):
 
     for i in range(n1):
         L.append(li[l+i])
+        print("lol")
     for i in range(n2):
         R.append(li[m + 1 + i])
 
@@ -76,13 +77,12 @@ def averageCaseArray(n):
 # print(worstCaseArray(1000))
 # n = 100000
 # print(timeit.timeit('mergeSort(bestCaseArray(n), 0, n - 1)', number = 10, globals = globals()))
-
-t = []
-
+n = 10
 # for n in range(100):
-    #s tBest = timeit.timeit('mergeSort(bestCaseArray(n), 0, n - 1)', number = 1, globals = globals())
-    #tAverage = timeit.timeit('mergeSort(averageCaseArray(n), 0, n - 1)', number = 1, globals = globals())
-    # tWorst = timeit.timeit('mergeSort(worstCaseArray(n), 0, n - 1)', number = 1, globals = globals())
+tBest = timeit.timeit('mergeSort(bestCaseArray(n), 0, n - 1)', number = 1, globals = globals())
+tAverage = timeit.timeit('mergeSort(averageCaseArray(n), 0, n - 1)', number = 1, globals = globals())
+print(tBest, tAverage)
+tWorst = timeit.timeit('mergeSort(worstCaseArray(n), 0, n - 1)', number = 1, globals = globals())
     # t.append((tBest * (10 ** 6), tAverage * (10 ** 6), tWorst * (10 ** 6)))
-
+print(tWorst)
 # print(t)
