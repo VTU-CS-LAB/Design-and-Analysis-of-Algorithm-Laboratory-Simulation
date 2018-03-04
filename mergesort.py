@@ -1,16 +1,13 @@
 '''
-Sort a given set of n integer elements using Merge Sort method and compute its time
-complexity. Run the program for varied values of n>5000, and record the time taken to sort.
-Plot a graph of the time taken versus n on graph sheet. The elements can be read from a file or
-can be generated using the random number generator. Demonstrate how the divide-
-and-conquer method works along with its time complexity analysis: worst case, average case
-and best case.
+Plots graph for MergeSort's time complexity.
 '''
-
-n = 1000 #number of elements in the array
 import matplotlib.pyplot as plt
 import timeit
 import math
+import random
+import sys
+
+sys.setrecursionlimit(1000)
 
 def mergeSort(li, l, h):
     if l < h:
@@ -51,55 +48,41 @@ def merge(li, l, m, h):
             j += 1
             k += 1
 def worstCaseArray(n):
-    if n == 1:
-        return [1]
-    else:
-        top = worstCaseArray(int(math.floor(float(n) / 2)))
-        bottom = worstCaseArray(int(math.ceil(float(n) / 2)))
-        return list(map(lambda x: x * 2, top)) + list(map(lambda x: x * 2 - 1, bottom)) #Worst case for mergesort isnt a reversed sorted array
+    arr = [i for i in range(n)]
+    final = []
+    def shuffle(arr):
+        if len(arr) <= 1:
+            return
+        if len(arr) == 2:
+            arr[0], arr[1] = arr[1], arr[0]
+            final.append(arr[0])
+            final.append(arr[1])
+        l = []
+        r = []
+        for i in range(len(arr)):
+            if i % 2 == 0:
+                l.append(arr[i])
+            else:
+                r.append(arr[i])
+        shuffle(l)
+        shuffle(r)
+    shuffle(arr)
+    return final
+def bestCaseArray(n):
+    return [i for i in range(n)]
+def averageCaseArray(n):
+    return [random.randint(0, n) for i in range(n)]
 
-def timeBest():
-    SETUP = '''
-from __main__ import mergeSort, n
-    '''
-    STMT = '''
-arr = [i for i in range(n)]
-mergeSort(arr, 0, len(arr) - 1)
-    '''
-    t = timeit.repeat(setup = SETUP, stmt = STMT, repeat = 2, number = 1000)
-    print(min(t))
+# print(worstCaseArray(1000))
+# n = 100000
+# print(timeit.timeit('mergeSort(bestCaseArray(n), 0, n - 1)', number = 10, globals = globals()))
 
-def timeWorst():
-    SETUP = '''
-from __main__ import mergeSort, worstCaseArray, n
-    '''
-    STMT = '''
-arr = worstCaseArray(n)
-mergeSort(arr, 0, len(arr) - 1)
-    '''
-    t = timeit.repeat(setup = SETUP, stmt = STMT, repeat = 2, number = 1000)
-    print(min(t))
+t = []
 
-def timeAverage():
-    SETUP = '''
-from __main__ import mergeSort, n
-import random
-    '''
-    STMT = '''
-arr = [random.randint(0, n) for i in range(1000)]
-mergeSort(arr, 0, len(arr) - 1)
-    '''
-    t = timeit.repeat(setup = SETUP, stmt = STMT, repeat = 2, number = 1000)
-    print(min(t))
+# for n in range(100):
+    #s tBest = timeit.timeit('mergeSort(bestCaseArray(n), 0, n - 1)', number = 1, globals = globals())
+    #tAverage = timeit.timeit('mergeSort(averageCaseArray(n), 0, n - 1)', number = 1, globals = globals())
+    # tWorst = timeit.timeit('mergeSort(worstCaseArray(n), 0, n - 1)', number = 1, globals = globals())
+    # t.append((tBest * (10 ** 6), tAverage * (10 ** 6), tWorst * (10 ** 6)))
 
-def main():
-    while True:
-        print("1. Best 2. Average 3. Worst")
-        ch = int(input())
-        if ch == 1:
-            timeBest()
-        if ch == 2:
-            timeAverage()
-        if ch == 3:
-            timeWorst()
-main()
+# print(t)
