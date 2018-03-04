@@ -6,6 +6,7 @@ import timeit
 import math
 import random
 import sys
+from worstcase import worstCaseArray
 
 sys.setrecursionlimit(1000)
 
@@ -24,7 +25,6 @@ def merge(li, l, m, h):
 
     for i in range(n1):
         L.append(li[l+i])
-        print("lol")
     for i in range(n2):
         R.append(li[m + 1 + i])
 
@@ -48,41 +48,15 @@ def merge(li, l, m, h):
             li[k] = R[j]
             j += 1
             k += 1
-def worstCaseArray(n):
-    arr = [i for i in range(n)]
-    final = []
-    def shuffle(arr):
-        if len(arr) <= 1:
-            return
-        if len(arr) == 2:
-            arr[0], arr[1] = arr[1], arr[0]
-            final.append(arr[0])
-            final.append(arr[1])
-        l = []
-        r = []
-        for i in range(len(arr)):
-            if i % 2 == 0:
-                l.append(arr[i])
-            else:
-                r.append(arr[i])
-        shuffle(l)
-        shuffle(r)
-    shuffle(arr)
-    return final
 def bestCaseArray(n):
     return [i for i in range(n)]
 def averageCaseArray(n):
     return [random.randint(0, n) for i in range(n)]
 
-# print(worstCaseArray(1000))
-# n = 100000
-# print(timeit.timeit('mergeSort(bestCaseArray(n), 0, n - 1)', number = 10, globals = globals()))
-n = 10
-# for n in range(100):
-tBest = timeit.timeit('mergeSort(bestCaseArray(n), 0, n - 1)', number = 1, globals = globals())
-tAverage = timeit.timeit('mergeSort(averageCaseArray(n), 0, n - 1)', number = 1, globals = globals())
-print(tBest, tAverage)
-tWorst = timeit.timeit('mergeSort(worstCaseArray(n), 0, n - 1)', number = 1, globals = globals())
-    # t.append((tBest * (10 ** 6), tAverage * (10 ** 6), tWorst * (10 ** 6)))
-print(tWorst)
-# print(t)
+t = []
+
+for n in range(1000):
+    tBest = timeit.timeit('mergeSort(bestCaseArray(n), 0, n - 1)', number = 1, globals = globals())
+    tAverage = timeit.timeit('mergeSort(averageCaseArray(n), 0, n - 1)', number = 1, globals = globals())
+    tWorst = timeit.timeit('mergeSort(worstCaseArray(n), 0, n - 1)', number = 1, globals = globals())
+    t.append((tBest * (10 ** 6), tAverage * (10 ** 6), tWorst * (10 ** 6)))
