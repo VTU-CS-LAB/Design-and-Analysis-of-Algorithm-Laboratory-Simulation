@@ -7,7 +7,7 @@ import math
 import random
 import sys
 
-num = 500
+num = 1000
 sys.setrecursionlimit(1000)
 
 def mergeSort(li, l, h):
@@ -74,21 +74,23 @@ def bestCaseArray(n):
 def averageCaseArray(n):
     return [random.randint(0, n) for i in range(n)]
 
-t = []
 
-for n in range(num):
-    tBest = timeit.timeit('mergeSort(bestCaseArray(n), 0, n - 1)', number = 3, globals = globals())
-    tAverage = timeit.timeit('mergeSort(averageCaseArray(n), 0, n - 1)', number = 3, globals = globals())
-    tWorst = timeit.timeit('mergeSort(worstCaseArray(n), 0, n - 1)', number = 3, globals = globals())
-    t.append((tBest * (10 ** 6), tAverage * (10 ** 6), tWorst * (10 ** 6)))
 
-tBest = [a[0] for a in t]
-tAverage = [a[1] for a in t]
-tWorst = [a[2] for a in t]
+if __name__ == '__main__':
+    t = []
+    for n in range(num):
+        tBest = timeit.timeit('mergeSort(bestCaseArray(n), 0, n - 1)', number = 5, globals = globals())
+        tAverage = timeit.timeit('mergeSort(averageCaseArray(n), 0, n - 1)', number = 5, globals = globals())
+        tWorst = timeit.timeit('mergeSort(worstCaseArray(n), 0, n - 1)', number = 5, globals = globals())
+        t.append((tBest * (10 ** 6), tAverage * (10 ** 6), tWorst * (10 ** 6)))
 
-time = [i for i in range(num)]
+    tBest = [a[0] for a in t]
+    tAverage = [a[1] for a in t]
+    tWorst = [a[2] for a in t]
 
-plt.plot(time, tBest)
-plt.plot(time, tAverage)
-plt.plot(time, tWorst)
-plt.show()
+    time = [i for i in range(num)]
+
+    plt.plot(time, tBest)
+    plt.plot(time, tAverage)
+    plt.plot(time, tWorst)
+    plt.show()
