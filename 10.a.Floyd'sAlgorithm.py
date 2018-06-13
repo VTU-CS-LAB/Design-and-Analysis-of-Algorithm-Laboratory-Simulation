@@ -15,7 +15,7 @@ if __name__ == '__main__':
             p[i,j] = i
             if (i != j and graph[i,j] == 0):
                 p[i,j] = -30000
-                graph[i,j] = 30000 # set zeros to any large number which is bigger then the longest way
+                graph[i,j] = 30000 
     for k in range(0,v):
         for i in range(0,v):
             for j in range(0,v):
